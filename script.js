@@ -4,11 +4,12 @@ function Question(questionText, options, correctAnswer) {
     this.questionText = questionText;
     this.options = options;
     this.correctAnswer = correctAnswer;
-    this.checkAnswer = function (answer) {
-        return answer === this.correctAnswer
-    }
 
+    console.log(this)
+}
 
+Question.prototype.checkAnswer = function (answer) {
+    return answer === this.correctAnswer
 }
 
 let question1 = new Question("which is javascript package management application ? ", { a: "Node.js", b: "Typscript", c: "Npm" }, "c");
