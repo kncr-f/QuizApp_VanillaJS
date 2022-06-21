@@ -10,8 +10,6 @@ Question.prototype.checkAnswer = function (answer) {
     return answer === this.correctAnswer
 }
 
-let question1 = new Question("which is javascript package management application ? ", { a: "Node.js", b: "Typscript", c: "Npm" }, "c");
-let question2 = new Question("which is .net package management application ? ", { a: "Node.js", b: "Nuget", c: "Npm" }, "b");
 
 let questions = [
     new Question("1-which is javascript package management application ? ", { a: "Node.js", b: "Typscript", c: "Npm" }, "c"),
@@ -33,9 +31,9 @@ const quiz = new Quiz(questions);
 
 console.log(quiz.fetchQuestion());
 
-document.querySelector(".btn-start").addEventListener("click", function () {
+document.querySelector(".btn_start").addEventListener("click", function () {
     if (quiz.questions.length != quiz.questionIndex) {
-
+        document.querySelector(".quiz_box").classList.add("active");
         console.log(quiz.fetchQuestion())
         quiz.questionIndex += 1;
     } else {
