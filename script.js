@@ -32,11 +32,32 @@ const quiz = new Quiz(questions);
 console.log(quiz.fetchQuestion());
 
 document.querySelector(".btn_start").addEventListener("click", function () {
-    if (quiz.questions.length != quiz.questionIndex) {
-        document.querySelector(".quiz_box").classList.add("active");
-        console.log(quiz.fetchQuestion())
+    document.querySelector(".quiz_box").classList.add("active");
+    showQuestion(quiz.fetchQuestion())
+});
+
+document.querySelector(".next_btn").addEventListener("click", function () {
+    if (quiz.questions.length != quiz.questionIndex + 1) {
         quiz.questionIndex += 1;
+        showQuestion(quiz.fetchQuestion())
+
     } else {
         console.log("there is no more question")
     }
 })
+
+function showQuestion(ques) {
+    let question = `<span>${ques.questionText}</span>`;
+    let options = "";
+    for (let answer in ques.options) {
+        options += `
+    <div class="option">
+    <span><b>${answer}</b>: ${ques.options[answer]}</span>
+    </div>
+    `
+    }
+
+    document.querySelector(".question_text").innerHTML = question;
+    document.querySelector(".option_list").innerHTML = options;
+
+}
