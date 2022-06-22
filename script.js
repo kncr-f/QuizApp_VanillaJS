@@ -29,18 +29,20 @@ Quiz.prototype.fetchQuestion = function () {
 
 const quiz = new Quiz(questions);
 
-console.log(quiz.fetchQuestion().correctAnswer);
 
 document.querySelector(".btn_start").addEventListener("click", function () {
     document.querySelector(".quiz_box").classList.add("active");
     showQuestion(quiz.fetchQuestion());
-    document.querySelector(".next_btn").classList.remove("show")
+    showNumberOfQuestion(quiz.questionIndex + 1, quiz.questions.length);
+    document.querySelector(".next_btn").classList.remove("show");
 });
 
 document.querySelector(".next_btn").addEventListener("click", function () {
     if (quiz.questions.length != quiz.questionIndex + 1) {
         quiz.questionIndex += 1;
         showQuestion(quiz.fetchQuestion());
+        showNumberOfQuestion(quiz.questionIndex + 1, quiz.questions.length)
+
         document.querySelector(".next_btn").classList.remove("show")
 
 
@@ -94,4 +96,12 @@ function optionSelected(option) {
         children[i].classList.add("disabled");
     }
     document.querySelector(".next_btn").classList.add("show")
+}
+
+function showNumberOfQuestion(index, total) {
+    let content = `
+    <span class="badge bg-warning">${index} / ${total}</span>
+    `;
+
+    document.querySelector(".question_index").innerHTML = content;
 }
