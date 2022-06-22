@@ -29,22 +29,30 @@ Quiz.prototype.fetchQuestion = function () {
 
 const quiz = new Quiz(questions);
 
-console.log(quiz.fetchQuestion());
+console.log(quiz.fetchQuestion().correctAnswer);
 
 document.querySelector(".btn_start").addEventListener("click", function () {
     document.querySelector(".quiz_box").classList.add("active");
-    showQuestion(quiz.fetchQuestion())
+    showQuestion(quiz.fetchQuestion());
+    document.querySelector(".next_btn").classList.remove("show")
 });
 
 document.querySelector(".next_btn").addEventListener("click", function () {
     if (quiz.questions.length != quiz.questionIndex + 1) {
         quiz.questionIndex += 1;
-        showQuestion(quiz.fetchQuestion())
+        showQuestion(quiz.fetchQuestion());
+        document.querySelector(".next_btn").classList.remove("show")
+
 
     } else {
-        console.log("there is no more question")
+        console.log("there is no more question");
+        document.querySelector(".next_btn").classList.remove("show");
     }
 })
+
+const optionList = document.querySelector(".option_list");
+const correctIcon = '<div class="icon"><i class="fas fa-check"></i></div>';
+const inCorrectIcon = '<div class="icon"><i class="fas fa-times"></i></div>';
 
 function showQuestion(ques) {
     let question = `<span>${ques.questionText}</span>`;
@@ -58,6 +66,32 @@ function showQuestion(ques) {
     }
 
     document.querySelector(".question_text").innerHTML = question;
-    document.querySelector(".option_list").innerHTML = options;
+    optionList.innerHTML = options;
 
+    const allOptions = optionList.querySelectorAll(".option");
+
+    for (let opt of allOptions) {
+        opt.setAttribute("onclick", "optionSelected(this)")
+    }
+
+}
+
+function optionSelected(option) {
+
+
+    let answer = option.querySelector("span b").textContent;
+    if (answer == quiz.fetchQuestion().correctAnswer) {
+        option.classList.add("correct");
+        option.insertAdjacentHTML("beforeend", correctIcon)
+    } else {
+        option.classList.add("incorrect");
+        option.insertAdjacentHTML("beforeend", inCorrectIcon)
+
+    }
+    let children = document.querySelector(".option_list").children;
+
+    for (let i = 0; i < children.length; i++) {
+        children[i].classList.add("disabled");
+    }
+    document.querySelector(".next_btn").classList.add("show")
 }
