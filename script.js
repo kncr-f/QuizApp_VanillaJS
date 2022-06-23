@@ -4,6 +4,7 @@ const ui = new UI();
 ui.btn_start.addEventListener("click", function () {
     ui.quiz_box.classList.add("active");
     startTimer(10);
+    startTimerLine();
     ui.showQuestion(quiz.fetchQuestion());
     ui.showNumberOfQuestion(quiz.questionIndex + 1, quiz.questions.length);
     ui.next_btn.classList.remove("show");
@@ -14,6 +15,7 @@ ui.next_btn.addEventListener("click", function () {
         quiz.questionIndex += 1;
         ui.showQuestion(quiz.fetchQuestion());
         startTimer(10);
+        startTimerLine();
         ui.showNumberOfQuestion(quiz.questionIndex + 1, quiz.questions.length)
         ui.next_btn.classList.remove("show")
 
@@ -44,6 +46,7 @@ ui.btn_replay.addEventListener("click", function () {
 
 function optionSelected(option) {
     clearInterval(counter);
+    clearInterval(line)
     let answer = option.querySelector("span b").textContent;
     if (answer == quiz.fetchQuestion().correctAnswer) {
         option.classList.add("correct");
@@ -54,8 +57,6 @@ function optionSelected(option) {
     } else {
         option.classList.add("incorrect");
         option.insertAdjacentHTML("beforeend", ui.inCorrectIcon);
-
-
     }
     let children = document.querySelector(".option_list").children;
 
@@ -90,4 +91,18 @@ function startTimer(time) {
         }
     }
 
+}
+let line;
+function startTimerLine() {
+    let line_width = 0;
+    line = setInterval(timer, 19);
+
+    function timer() {
+        line_width += 1;
+        ui.time_line.style.width = line_width + "px";
+        if (line_width > 575) {
+            clearInterval(line)
+        }
+
+    }
 }

@@ -9,7 +9,8 @@ function UI() {
         this.score_box = document.querySelector(".score_box"),
         this.optionList = document.querySelector(".option_list"),
         this.correctIcon = '<div class="icon"><i class="fas fa-check"></i></div>',
-        this.inCorrectIcon = '<div class="icon"><i class="fas fa-times"></i></div>'
+        this.inCorrectIcon = '<div class="icon"><i class="fas fa-times"></i></div>',
+        this.time_line = document.querySelector(".time_line")
 }
 
 UI.prototype.showQuestion = function (ques) {
