@@ -1,7 +1,10 @@
 function UI() {
     this.btn_start = document.querySelector(".btn_start"),
         this.next_btn = document.querySelector(".next_btn"),
+        this.btn_replay = document.querySelector(".btn_replay"),
+        this.btn_quit = document.querySelector(".btn_quit"),
         this.quiz_box = document.querySelector(".quiz_box"),
+        this.score_box = document.querySelector(".score_box"),
         this.optionList = document.querySelector(".option_list"),
         this.correctIcon = '<div class="icon"><i class="fas fa-check"></i></div>',
         this.inCorrectIcon = '<div class="icon"><i class="fas fa-times"></i></div>'
@@ -35,4 +38,11 @@ UI.prototype.showNumberOfQuestion = function (index, total) {
     `;
 
     document.querySelector(".question_index").innerHTML = content;
+}
+
+UI.prototype.showScore = function (total, correct) {
+    let content = `
+    You answered ${correct} of ${total} questions correctly.
+    `;
+    document.querySelector(".score_box .score_text").innerHTML = content;
 }

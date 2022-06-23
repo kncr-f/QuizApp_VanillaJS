@@ -8,7 +8,7 @@ ui.btn_start.addEventListener("click", function () {
     ui.next_btn.classList.remove("show");
 });
 
-document.querySelector(".next_btn").addEventListener("click", function () {
+ui.next_btn.addEventListener("click", function () {
     if (quiz.questions.length != quiz.questionIndex + 1) {
         quiz.questionIndex += 1;
         ui.showQuestion(quiz.fetchQuestion());
@@ -18,11 +18,25 @@ document.querySelector(".next_btn").addEventListener("click", function () {
 
     } else {
         console.log("there is no more question");
-        ui.next_btn.classList.remove("show");
+        //ui.next_btn.classList.remove("show");
+        ui.quiz_box.classList.remove("active")
+        ui.score_box.classList.add("active");
+        ui.showScore(quiz.questions.length, quiz.numberOfCorrect)
+
     }
-})
+});
 
+ui.btn_quit.addEventListener("click", function () {
+    window.location.reload()
+});
 
+ui.btn_replay.addEventListener("click", function () {
+    quiz.questionIndex = 0;
+    quiz.numberOfCorrect = 0;
+    ui.btn_start.click();
+    ui.score_box.classList.remove("active");
+
+});
 
 
 
@@ -31,7 +45,9 @@ function optionSelected(option) {
     let answer = option.querySelector("span b").textContent;
     if (answer == quiz.fetchQuestion().correctAnswer) {
         option.classList.add("correct");
-        option.insertAdjacentHTML("beforeend", ui.correctIcon)
+        option.insertAdjacentHTML("beforeend", ui.correctIcon);
+        quiz.numberOfCorrect += 1;
+
     } else {
         option.classList.add("incorrect");
         option.insertAdjacentHTML("beforeend", ui.inCorrectIcon)
