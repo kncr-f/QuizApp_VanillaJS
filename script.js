@@ -3,6 +3,7 @@ const ui = new UI();
 
 ui.btn_start.addEventListener("click", function () {
     ui.quiz_box.classList.add("active");
+    startTimer(10);
     ui.showQuestion(quiz.fetchQuestion());
     ui.showNumberOfQuestion(quiz.questionIndex + 1, quiz.questions.length);
     ui.next_btn.classList.remove("show");
@@ -12,6 +13,7 @@ ui.next_btn.addEventListener("click", function () {
     if (quiz.questions.length != quiz.questionIndex + 1) {
         quiz.questionIndex += 1;
         ui.showQuestion(quiz.fetchQuestion());
+        startTimer(10);
         ui.showNumberOfQuestion(quiz.questionIndex + 1, quiz.questions.length)
         ui.next_btn.classList.remove("show")
 
@@ -41,16 +43,18 @@ ui.btn_replay.addEventListener("click", function () {
 
 
 function optionSelected(option) {
-
+    clearInterval(counter);
     let answer = option.querySelector("span b").textContent;
     if (answer == quiz.fetchQuestion().correctAnswer) {
         option.classList.add("correct");
         option.insertAdjacentHTML("beforeend", ui.correctIcon);
         quiz.numberOfCorrect += 1;
 
+
     } else {
         option.classList.add("incorrect");
-        option.insertAdjacentHTML("beforeend", ui.inCorrectIcon)
+        option.insertAdjacentHTML("beforeend", ui.inCorrectIcon);
+
 
     }
     let children = document.querySelector(".option_list").children;
@@ -61,3 +65,29 @@ function optionSelected(option) {
     ui.next_btn.classList.add("show")
 }
 
+let counter;
+function startTimer(time) {
+
+    counter = setInterval(timer, 1000);
+    function timer() {
+        ui.time_second.textContent = time;
+        time--;
+        if (time < 0) {
+            clearInterval(counter);
+            ui.time_text.textContent = "Time is up!";
+            // ui.time_second.remove();
+
+            for (let option of ui.optionList.children) {
+                if (option.querySelector("span b").textContent == quiz.fetchQuestion().correctAnswer) {
+                    option.classList.add("correct");
+                    option.insertAdjacentHTML("beforeend", ui.correctIcon);
+                }
+                option.classList.add("disabled");
+            }
+            ui.next_btn.classList.add("show")
+
+
+        }
+    }
+
+}

@@ -10,9 +10,10 @@ Question.prototype.checkAnswer = function (answer) {
 
 
 let questions = [
-    new Question("1-which is javascript package management application ? ", { a: "Node.js", b: "Typscript", c: "Npm" }, "c"),
-    new Question("2-which is javascript package management application ? ", { a: "Node.js", b: "Typscript", c: "Npm" }, "c"),
-    new Question("3-which is javascript package management application ? ", { a: "Node.js", b: "Typscript", c: "Npm" }, "c"),
-    new Question("4-which is .net package management application ? ", { a: "Node.js", b: "Nuget", c: "Npm" }, "b")
+
+    new Question("1-Which one is javascript package management application?", { a: "Node.js", b: "Typescript", c: "Npm", d: "Nuget" }, "c"),
+    new Question("2-Which one is not considered a frontend-tools?", { a: "css", b: "html", c: "javascipt", d: "sql" }, "d"),
+    new Question("3-Which one is considered as backend-tools?", { a: "node.js", b: "typescript", c: "angular", d: "react" }, "a"),
+    new Question("4-Which one does not use the javascript programming language?", { a: "react", b: "angular", c: "vuejs", d: "asp.net" }, "d")
 
 ];
